@@ -11,20 +11,46 @@ resilience4j:
         base-config: default-config # name already set before
       ItemsCircuitBreaker:  # we set a name to identify it.
         base-config: default-config # name already set before
+      UsersCircuitBreaker:  # we set a name to identify it.
+        base-config: default-config # name already set before
+      OauthCircuitBreaker:  # we set a name to identify it.
+        base-config: default-config # name already set before
   timelimiter:
     configs:
       default-config:
-        timeout-duration: 3s
+        timeout-duration: 5s
     instances:
       ProductsCircuitBreaker:
         base-config: default-config
       ItemsCircuitBreaker:
+        base-config: default-config
+      UsersCircuitBreaker:
+        base-config: default-config
+      OauthCircuitBreaker:
         base-config: default-config
 
 spring:
   cloud:
     gateway:
       routes:
+      - id: oauth-service
+        uri: lb://oauth-service
+        predicates: # Pre-conditions to match in order to be able to consume the route.
+          - Path=/api-oauth/**
+          #- Method=GET,POST # methods allowed
+          #- Header=token, \d+ # must be this token header at least, or an specific Content-Type header in example..
+        filters:
+          - CircuitBreaker=OauthCircuitBreaker #the name we set up before in this document
+          - StripPrefix=1 # number of parts/slides in the path below /1/2/3...
+      - id: users-service
+        uri: lb://users-service
+        predicates: # Pre-conditions to match in order to be able to consume the route.
+          - Path=/api-users/**
+          #- Method=GET,POST # methods allowed
+          #- Header=token, \d+ # must be this token header at least, or an specific Content-Type header in example..
+        filters:
+          - CircuitBreaker=UsersCircuitBreaker #the name we set up before in this document
+          - StripPrefix=1 # number of parts/slides in the path below /1/2/3...
       - id: product-service
         uri: lb://product-service
         predicates: # Pre-conditions to match in order to be able to consume the route.
