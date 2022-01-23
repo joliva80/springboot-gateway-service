@@ -27,6 +27,6 @@ spring:
           - Path=/api-vfs-ccc-pre/**
           #- Method=GET,POST,PATCH,UPDATE,DELETE # methods allowed
           #- Header=token, \d+ # must be this token header at least, or an specific Content-Type header in example..
-        filters:
-          - vfsBackendCircuitBreaker #the name we set up before in this document
-          - StripPrefix=1 # number of parts/slides in the path below /1/2/3...
+        #filters:
+        #  - vfsBackendCircuitBreaker #the name we set up before in this document
+        # - StripPrefix=1 # number of parts/slides in the path below /1/2/3...
