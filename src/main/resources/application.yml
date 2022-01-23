@@ -25,7 +25,7 @@ spring:
         uri: lb://vfs-backend-service
         predicates: # Pre-conditions to match in order to be able to consume the route.
           - Path=/api-vfs-ccc-pre/**
-          - Method=GET,POST,PATCH,UPDATE,DELETE # methods allowed
+          #- Method=GET,POST,PATCH,UPDATE,DELETE # methods allowed
           #- Header=token, \d+ # must be this token header at least, or an specific Content-Type header in example..
         filters:
           - vfsBackendCircuitBreaker #the name we set up before in this document
