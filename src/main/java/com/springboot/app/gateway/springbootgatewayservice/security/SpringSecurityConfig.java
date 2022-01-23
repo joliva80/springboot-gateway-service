@@ -13,7 +13,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @Configuration
 @EnableWebFluxSecurity
 public class SpringSecurityConfig {
-    
+   /* 
     @Autowired
     private AuthenticationFilterJwt authenticationFilter;
 
@@ -35,5 +35,6 @@ public class SpringSecurityConfig {
 
         return http.build();
     }
+    */
  
 }
